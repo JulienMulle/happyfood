@@ -12,18 +12,21 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // ne pas oublier : npx react-native link react-native-vector-icons
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Provider } from 'react-redux';
+import { store } from './src/redux/store';
 
 //components
 import Menu from './src/screens/Menu';
-import Recipes from './src/screens/Recipes';
 import ItemsList from './src/screens/ItemsList';
 import ShoppingList from './src/screens/ShoppingList';
+import RecipesStack from './src/components/RecipesStack';
+import Account from './src/screens/Account';
 
 const Tab = createBottomTabNavigator();
 
 const App = () => {
   return(
-
+    //<Provider store={store}>
       <NavigationContainer>
         <Tab.Navigator 
         screenOptions={({route}) => ({
@@ -33,17 +36,17 @@ const App = () => {
               case 'Menu':
                 iconName = 'home';
                 break;
-                case 'Recipes':
+                case 'Recette':
                 iconName = 'restaurant';
                 break;
                 case 'ItemsList':
-                iconName = 'document';
+                iconName = 'nutrition';
                 break;
                 case 'ShoppingList':
                 iconName = 'cart';
                 break;
-                case 'search':
-                iconName =  'search';
+                case 'Account':
+                iconName =  'person';
                 break;
             }
             return <Icon  name={iconName} size={25}  color={color}/>
@@ -54,12 +57,12 @@ const App = () => {
           headerShown: false,
           tabBarStyle: {
             position: "absolute",
-            bottom: 15,
+            bottom: 7,
             left: 15,
             right: 15,
             elevation: 0,
             backgroundColor: "white",
-            borderRadius: 15,
+            borderRadius: 10,
             height: 50,
             // j'injecte le styles 
             ...styles.shadow
@@ -71,12 +74,8 @@ const App = () => {
           component={Menu}
           />
           <Tab.Screen 
-          name="Recipes"
-          component={Recipes}
-          />
-          <Tab.Screen 
-          name="search"
-          component={Recipes}
+          name="Recette"
+          component={RecipesStack}
           />
           <Tab.Screen 
           name="ItemsList"
@@ -86,9 +85,13 @@ const App = () => {
           name="ShoppingList"
           component={ShoppingList}
           />
+          <Tab.Screen 
+          name="Account"
+          component={Account}
+          />
         </Tab.Navigator>
       </NavigationContainer>
-   
+    //</Provider>
   )
 }
 const styles = StyleSheet.create({

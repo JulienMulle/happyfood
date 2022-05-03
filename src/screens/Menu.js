@@ -1,11 +1,17 @@
-import React from 'react'
-import {Text,View} from 'react-native';
+import React, { useState, useEffect} from 'react'
+import {Text,View, SafeAreaView} from 'react-native';
+
+//components
+
+
 
 const Menu = () => {
   return (
-    <View>
+    <SafeAreaView>
+      <View>
         <Text>Menu</Text>
-    </View>
+      </View>
+    </SafeAreaView>
   )
 }
 
