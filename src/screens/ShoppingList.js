@@ -1,38 +1,42 @@
 import React, { useEffect, useState} from 'react'
-import {Text,View, StyleSheet} from 'react-native';
+import {Text,View, StyleSheet, FlatList, scrollView} from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleItem, deleteItem } from '../features/Redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { persistStore, persistReducer } from 'react-persist';
+
+//components
+import ShoppingTile from '../components/ShoppingTile';
+
 
 const ShoppingList = () => {
-  const [listing, setListing] = useState()
-  const readData = async () => {
-    try {
-      const shopList = await AsyncStorage.getItem('001')
-      if (shopList !== null) {
-        setListing(shopList);
-      }
-    } catch(e) {
-      alert('oups ca ne fonctionne pas')
-    }
-  };
-  useEffect(()=>{
-    readData
-  },[])
-  console.log(listing)
+  const persistConfig = {
+    key:'root',
+    storage: AsyncStorage,
+    whitelist: []
+  }
+  //redux
+  const shoplist = useSelector((state)=>state.shopList);
+  const dispatch = useDispatch();
+  console.log(shoplist)
+
   return (
-    <View style={styles.container}>
-        <Text>{listing}</Text>
-    </View>
+    <FlatList 
+      data={shoplist}
+      key={shoplist.id}
+      renderItem={({item})=>
+        <ShoppingTile 
+          name={item.name}
+          removeShopItem={()=>dispatch(deleteItem(item.id))}
+        />}
+    />
+      
   )
 };
 
 const styles = StyleSheet.create({
   container:{
-    flex:1,
-    justifyContent:'center',
-    alignItems: 'center',
-    width: '80%',
-    height:'93%',
-    backgroundColor: 'red',
+   
     
   }
 })

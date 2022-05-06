@@ -1,19 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, SafeAreaView, Modal, Text, RefreshControl, Pressable, FlatList} from 'react-native';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../features/Redux';
 
 //components
 import ItemsTile from '../components/ItemsTile'
 import FloatinBtn from '../components/FloatingBtn';
 import ItemAddForm from '../components/ItemAddForm';
-import { add } from 'react-native-reanimated';
 
 
 const ItemsList = () => {
   const [items, setItems] = useState("");
   const [modalVisible, setModalVisible] = useState(false)
   const [resfreshing, setRefreshing] = useState(false)
+  //redux
+  const dispatch = useDispatch();
 
   const onRefresh =()=>{
     setRefreshing(true);
@@ -36,21 +38,12 @@ const ItemsList = () => {
     setItems(newItemsList);
   };
 
-  const addShopList = async (id) =>{
-    
-    try {
-      const addItem = items.filter((item)=>{
-        return item.id !== id
-      });
-      const jsonValue = JSON.stringify(addItem)
-      await AsyncStorage.setItem('001', jsonValue).then(console.log('success'));
-      alert(addItem);
-      console.log(addItem)
-    }
-    catch(error){
-      console.error(error, 'erreur dans le asyncStorage')
-    }
-  };
+  const addShopList = (id)=>{
+    const newItem = items.filter((item)=>{
+      return item.id !==(id)
+    })
+    dispatch(addItem(newItem))
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -61,7 +54,7 @@ const ItemsList = () => {
           <ItemsTile 
            name={item.name}
            removeItem={()=>deleteItem(item.id)}
-           addShoppingList={()=>addShopList(item.name)}
+           addShoppingList={()=>dispatch(addItem(item.name))}
            />}
         refreshControl={
           <RefreshControl
