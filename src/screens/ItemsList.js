@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, SafeAreaView, Modal, Text, RefreshControl, Pressable, FlatList} from 'react-native';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { addItem } from '../features/Redux';
+import { addItem } from '../features/shoplistSlice';
 
 //components
 import ItemsTile from '../components/ItemsTile'
@@ -37,13 +37,6 @@ const ItemsList = () => {
     await axios.delete(`http://10.0.2.2:5000/item/${id}`);   
     setItems(newItemsList);
   };
-
-  const addShopList = (id)=>{
-    const newItem = items.filter((item)=>{
-      return item.id !==(id)
-    })
-    dispatch(addItem(newItem))
-  }
 
   return (
     <SafeAreaView style={styles.container}>

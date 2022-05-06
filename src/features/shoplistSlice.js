@@ -1,6 +1,6 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-const shoplistSlice = createSlice({
+export const shoplistSlice = createSlice({
     name: 'shoppinglist',
     initialState: [], 
     reducers:{
@@ -26,10 +26,7 @@ const shoplistSlice = createSlice({
     }
 });
 
-export const {addItem, toggleItem, deleteItem, deleteAllItem} = shoplistSlice.actions;
+export const { addItem, toggleItem, deleteItem, deleteAllItem } = shoplistSlice.actions;
 
-export const store = configureStore({
-    reducer: {
-        shopList: shoplistSlice.reducer
-    }
-})
+export default shoplistSlice.reducer
+

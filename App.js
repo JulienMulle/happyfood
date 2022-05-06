@@ -13,7 +13,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // ne pas oublier : npx react-native link react-native-vector-icons
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Provider } from 'react-redux';
-import { store } from './src/features/Redux';
+import { store } from './src/features/shopList';
+import { PersistGate } from 'redux-persist/integration/react';
 
 //components
 import Menu from './src/screens/Menu';
@@ -27,6 +28,7 @@ const Tab = createBottomTabNavigator();
 const App = () => {
   return(
     <Provider store={store}>
+      
       <NavigationContainer>
         <Tab.Navigator 
         screenOptions={({route}) => ({
@@ -91,6 +93,7 @@ const App = () => {
           />
         </Tab.Navigator>
       </NavigationContainer>
+      
     </Provider>
   )
 }

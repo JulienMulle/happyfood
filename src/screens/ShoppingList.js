@@ -1,20 +1,14 @@
 import React, { useEffect, useState} from 'react'
 import {Text,View, StyleSheet, FlatList, scrollView} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleItem, deleteItem } from '../features/Redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { persistStore, persistReducer } from 'react-persist';
+import { toggleItem, deleteItem } from '../features/shoplistSlice';
 
 //components
 import ShoppingTile from '../components/ShoppingTile';
 
 
 const ShoppingList = () => {
-  const persistConfig = {
-    key:'root',
-    storage: AsyncStorage,
-    whitelist: []
-  }
+
   //redux
   const shoplist = useSelector((state)=>state.shopList);
   const dispatch = useDispatch();
