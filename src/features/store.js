@@ -4,10 +4,12 @@ import { persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 
 import shoplistSlice from "./shoplistSlice";
+import menuSlice from "./menuSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Reducers = combineReducers({
     shopList: shoplistSlice,
+    listingMenu: menuSlice,
 });
 
 const persistConfig = {
@@ -23,9 +25,4 @@ const store = configureStore({
 });
 
 export default store;
-/*export const store = configureStore({
-    reducer: {
-        shopList: shoplistSlice
-    }
-    
-});*/
+

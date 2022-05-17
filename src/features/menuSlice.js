@@ -1,21 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const shoplistSlice = createSlice({
-    name: 'shoppinglist',
+export const menuSlice = createSlice({
+    name: 'menuList',
     initialState: [], 
     reducers:{
         addItem: (state, action)=>{
-            const newItemShop = {               
+            const newRecipe = {               
                 id:Date.now(),
                 name: action.payload,
                 //user_id: action.payload
             }
-            state.push(newItemShop);
+            state.push(newRecipe);
         },
-        toggleItem: (state, action)=>{
-            const itemShop = state.find(i =>i.id=== action.payload);
-            itemShop.done = !itemShop.done;
-        },
+
         deleteItem: (state, action)=>{
             state = state.filter((i)=> i.id !== action.payload);
             return state;
@@ -26,7 +23,6 @@ export const shoplistSlice = createSlice({
     }
 });
 
-export const { addItem, toggleItem, deleteItem, deleteAllItem } = shoplistSlice.actions;
+export const { newRecipe } = menuSlice.actions;
 
-export default shoplistSlice.reducer
-
+export default menuSlice.reducer

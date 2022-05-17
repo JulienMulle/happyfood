@@ -15,7 +15,7 @@ const ItemAddForm = () => {
     }
     return(
         <View>
-            <Text>Formulaire creation articles</Text>
+            <Text>Formulaire creation d'article'</Text>
             <TextInput 
              style={stlyes.container}
              onChangeText={setOnChangeText}

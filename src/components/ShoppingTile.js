@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useDispatch } from 'react-redux';
 
 const ShoppingTile = ({name, removeShopItem,ToggleShopItem })=> {
     
@@ -9,7 +8,7 @@ const ShoppingTile = ({name, removeShopItem,ToggleShopItem })=> {
         <View style={styles.itemContainer}>
             <View style={styles.container}>
                 <Text style={styles.name}>{name}</Text>
-                <TouchableOpacity onPress={removeShopItem}>
+                <TouchableOpacity onPress={removeShopItem} style={styles.btn}>
                     <Icon 
                     name="trash"
                     size={25}
@@ -50,7 +49,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     btn:{
-        flexDirection:'row',
         paddingRight: 30,
     },
 })

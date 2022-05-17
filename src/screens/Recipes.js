@@ -1,7 +1,9 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {Text, View, StyleSheet, Image, Dimensions, Animated, Platform, TouchableOpacity } from 'react-native';
+import {Text, View, StyleSheet, Image, Dimensions, Animated, Platform, TouchableOpacity, Modal, Pressable } from 'react-native';
 import axios from 'axios';
 import Picture from '../assets/noImage.jpg'
+import FloatinBtn from '../components/FloatingBtn';
+import RecipeAddForm from '../components/RecipeAddForm';
 //import RecipesCard from '../components/RecipesCard';
 
 
@@ -13,6 +15,8 @@ const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 
 const Recipes = ({navigation}) => {
   const [recipes, setRecipes] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false)
+
   const scrollX = useRef(new Animated.Value(0)).current;
     
   const loadData = ()=>{
@@ -34,10 +38,10 @@ const Recipes = ({navigation}) => {
     
     <View style={styles.container}>
       <Animated.FlatList
-      showsHorizontalScrollIndicator={false}
       data={recipes}
       key={recipes.id}
       horizontal
+      showsHorizontalScrollIndicator={false}
       bounces={false}
       decelerationRate={Platform.OS === 'ios' ? 0 : 0.98}
       renderToHardwareTextureAndroid
@@ -93,7 +97,25 @@ const Recipes = ({navigation}) => {
           </TouchableOpacity>
         )
       }}
-      />      
+      />
+      <Modal
+         style={styles.modalView}
+         animationType='slide'
+         transparent={false}
+         visible={modalVisible}
+        >
+          <View>
+            <RecipeAddForm />
+            <Pressable
+             onPress={()=> setModalVisible(!modalVisible)}
+             >
+               <Text>close</Text>
+            </Pressable>
+          </View>
+        </Modal>
+      <FloatinBtn 
+        toggle={()=>setModalVisible(true)}
+      />
     </View>
 
   )};

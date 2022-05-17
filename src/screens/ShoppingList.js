@@ -1,10 +1,11 @@
-import React, { useEffect, useState} from 'react'
+import React from 'react'
 import {Text,View, StyleSheet, FlatList, scrollView} from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleItem, deleteItem } from '../features/shoplistSlice';
 
 //components
 import ShoppingTile from '../components/ShoppingTile';
+import Counter from '../components/Counter';
 
 
 const ShoppingList = () => {
