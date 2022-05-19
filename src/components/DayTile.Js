@@ -1,30 +1,44 @@
 import React, {useState, useEffect} from 'react';
-import { Text, TouchableOpacity, View, StyleSheet, Button, Modal, Pressable } from 'react-native';
+import { Text, TouchableOpacity, View, StyleSheet, Button, Modal, Pressable,Dimensions } from 'react-native';
+
+//components
+import ModalRecipes from './ModalRecipes';
 
 const DayTile = ({name})=>{
-    const [modalVisible, setModalVisible] = useState(false)
+    const [recipes, setRecipes] = useState('no recipe');
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const changeModalVisibility = (bool) => {
+        setIsModalVisible(bool)
+    };
+
+    const setData = (option) => {
+        setRecipes(option)
+    }
+
     return(
         <View style={styles.container}>
             <Text>{name}</Text>
             <View>
-                <Text>Recette</Text>
+                <Text>{recipes}</Text>
             </View>
-            <Modal
-                animationType='slide'
-                transparent={false}
-                visible={modalVisible}
+            <TouchableOpacity
+                onPress={()=>changeModalVisibility(true)}
             >
-                <Text>test recette ok</Text>
-                <Pressable
-             onPress={()=> setModalVisible(!modalVisible)}
-             >
-               <Text>close</Text>
-            </Pressable>
+                <Text>choisi une recette</Text>
+            </TouchableOpacity>
+            <Modal
+             transparent={true}
+             animationType='fade'
+             visible={isModalVisible}
+             nRequestClose={()=>changeModalVisibility(false)}
+            >
+                <ModalRecipes
+                    modalVisibility={changeModalVisibility}
+                    setData={setData}
+                  //changeModalVisibility={changeModalVisibility}
+                />
             </Modal>
-            <Button
-                onPress={()=> setModalVisible(!modalVisible)}
-                title='Ajouter Recette'
-            />
         </View>
 
     )
@@ -32,6 +46,8 @@ const DayTile = ({name})=>{
 
 const styles = StyleSheet.create({
     container:{
+        height: Dimensions.get("window").height,
+        width: Dimensions.get("window").width,
         backgroundColor:'white',
         justifyContent: 'center',
         alignItems: "center",
