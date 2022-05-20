@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, Dimensions, ScrollView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 
 //params
 
@@ -8,23 +9,36 @@ const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
 const ModalRecipes = ({modalVisibility, setData}) => {
+  const [recipes, setRecipes] = useState([]);
 
-  const onPressRecipe = (option)=>{
+  const loadRecipes = ()=>{
+    axios.get(`http://10.0.2.2:5000/recipes`)
+    .then((response)=>{
+      setRecipes(response.data)
+    })
+    .catch((error)=>{
+      console.log('erreur', error)
+    })
+  }
+  useEffect(loadRecipes,[])
+ 
+  const onPressRecipe = (recipesList)=>{
     modalVisibility(false);
-    setData(option)
+    setData(recipesList.title)
   };
 
-  const option = OPTIONS.map((recipe, index)=>{
+  const recipesList = recipes.map((recipe)=>{
     return(
       <TouchableOpacity
         style={styles.recipes}
-        key={index}
+        data={recipe}
+        key={recipe.id}
         onPress={()=> onPressRecipe(recipe)}
       >
         <Text
           style={styles.text}
         >
-          {recipe}
+          {recipe.title}
         </Text>
 
       </TouchableOpacity>
@@ -41,7 +55,7 @@ const ModalRecipes = ({modalVisibility, setData}) => {
          style={[styles.modal, {width: WIDTH - 20, height: HEIGHT /2}]}
         >
           <ScrollView>
-            {option}
+            {recipesList}
           </ScrollView>
         </View>
     </TouchableOpacity>
@@ -61,7 +75,7 @@ const styles = StyleSheet.create({
         borderRadius:10
     },
     recipes:{
-      alignItems:'flex-start'
+      alignItems:'center'
     },
     text:{
       margin: 15, 

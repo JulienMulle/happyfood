@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Text, TouchableOpacity, View, StyleSheet, Button, Modal, Pressable,Dimensions } from 'react-native';
+import { Text, TouchableOpacity, View, StyleSheet, Button, Modal, Pressable,Dimensions, Animated } from 'react-native';
 
 //components
 import ModalRecipes from './ModalRecipes';
@@ -46,13 +46,13 @@ const DayTile = ({name})=>{
 
 const styles = StyleSheet.create({
     container:{
-        height: Dimensions.get("window").height,
-        width: Dimensions.get("window").width,
+        height: Dimensions.get("window").height /2,
+        width: Dimensions.get("window").width - 40,
         backgroundColor:'white',
         justifyContent: 'center',
         alignItems: "center",
-        width: '80%',
-        heigth: '70%',
+        padding:10,
+        margin:20,
         
     }
 })

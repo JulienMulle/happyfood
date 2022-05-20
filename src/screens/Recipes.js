@@ -2,6 +2,8 @@ import React, {useState, useEffect, useRef} from 'react'
 import {Text, View, StyleSheet, Image, Dimensions, Animated, Platform, TouchableOpacity, Modal, Pressable } from 'react-native';
 import axios from 'axios';
 import Picture from '../assets/noImage.jpg'
+
+//components
 import FloatinBtn from '../components/FloatingBtn';
 import RecipeAddForm from '../components/RecipeAddForm';
 //import RecipesCard from '../components/RecipesCard';
@@ -30,10 +32,7 @@ const Recipes = ({navigation}) => {
         })
     }; 
     useEffect(loadData,[])
-
-  
-  //const recipeDetail = ()=>console.log('testdetail')
-    
+    console.log(recipes)
   return (
     
     <View style={styles.container}>
