@@ -18,10 +18,10 @@ import { persistStore } from 'redux-persist';
 import store from './src/features/store';
 
 //components
-import Menu from './src/screens/Menu';
 import ItemsList from './src/screens/ItemsList';
 import ShoppingList from './src/screens/ShoppingList';
-import RecipesStack from './src/components/RecipesStack';
+import RecipesStack from './src/components/StackNavigation/RecipesStack';
+import MenuStack from './src/components/StackNavigation/MenuStack';
 import Account from './src/screens/Account';
 
 const Tab = createBottomTabNavigator();
@@ -47,18 +47,15 @@ const App = () => {
                 case 'ItemsList':
                 iconName = 'nutrition';
                 break;
-                case 'ShoppingList':
+                case 'Liste de course':
                 iconName = 'cart';
-                break;
-                case 'Account':
-                iconName =  'person';
                 break;
             }
             return <Icon  name={iconName} size={25}  color={color}/>
           },
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'black',
-          tabBarShowLabel: false,
+          tabBarShowLabel: true,
           headerShown: false,
           tabBarStyle: {
             position: "absolute",
@@ -76,7 +73,7 @@ const App = () => {
         }>
           <Tab.Screen 
           name="Menu"
-          component={Menu}
+          component={MenuStack}
           />
           <Tab.Screen 
           name="Recette"
@@ -87,12 +84,8 @@ const App = () => {
           component={ItemsList}
           />
           <Tab.Screen 
-          name="ShoppingList"
+          name="Liste de course"
           component={ShoppingList}
-          />
-          <Tab.Screen 
-          name="Account"
-          component={Account}
           />
         </Tab.Navigator>
       </NavigationContainer>

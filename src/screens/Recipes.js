@@ -8,7 +8,7 @@ import FloatinBtn from '../components/FloatingBtn';
 import RecipeAddForm from '../components/RecipeAddForm';
 //import RecipesCard from '../components/RecipesCard';
 
-
+//params
 const { width } = Dimensions.get('window');
 const SPACING = 10;
 const ITEM_SIZE = Platform.OS === 'ios' ? width * 0.72 : width * 0.75;
@@ -32,7 +32,7 @@ const Recipes = ({navigation}) => {
         })
     }; 
     useEffect(loadData,[])
-    console.log(recipes)
+    
   return (
     
     <View style={styles.container}>

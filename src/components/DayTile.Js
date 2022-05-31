@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import { Text, TouchableOpacity, View, StyleSheet, Button, Modal, Pressable,Dimensions, Animated } from 'react-native';
+import { Text, TouchableOpacity, View, StyleSheet, Image, Modal, Pressable,Dimensions, Animated } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import Picture from '../assets/noImage.jpg'
 
 //components
 import ModalRecipes from './ModalRecipes';
 
 const DayTile = ({name})=>{
-    const [recipes, setRecipes] = useState('no recipe');
+    const [recipes, setRecipes] = useState({title:'no recipe'});
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const changeModalVisibility = (bool) => {
@@ -15,13 +17,18 @@ const DayTile = ({name})=>{
     const setData = (option) => {
         setRecipes(option)
     }
+    const navigation = useNavigation();
 
     return(
         <View style={styles.container}>
             <Text>{name}</Text>
-            <View>
-                <Text>{recipes}</Text>
-            </View>
+            <TouchableOpacity 
+            onPress={()=>navigation.navigate('RecipeDetail', 
+            {recipeId: recipes.id}
+            )}
+            >
+                <Text>{recipes.title}</Text>
+            </TouchableOpacity>
             <TouchableOpacity
                 onPress={()=>changeModalVisibility(true)}
             >
@@ -46,14 +53,15 @@ const DayTile = ({name})=>{
 
 const styles = StyleSheet.create({
     container:{
-        height: Dimensions.get("window").height /2,
-        width: Dimensions.get("window").width - 40,
+        height: Dimensions.get("window").height /8,
+        width: Dimensions.get("window").width - 20,
+        borderRadius: 10,
         backgroundColor:'white',
         justifyContent: 'center',
         alignItems: "center",
-        padding:10,
-        margin:20,
-        
+        padding: 10,
+        margin: 10,
+        marginBottom: 2,
     }
 })
 

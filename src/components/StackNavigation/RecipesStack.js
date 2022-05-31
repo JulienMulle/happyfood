@@ -1,8 +1,9 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import RecipeDetail from '../screens/RecipeDetail';
-import RecipesList from '../screens/Recipes';
+import RecipeDetail from '../../screens/RecipeDetail';
+import RecipesList from '../../screens/Recipes';
+
         
 export default function RecipesStack() {
 

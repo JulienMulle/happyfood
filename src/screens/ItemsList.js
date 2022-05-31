@@ -74,46 +74,6 @@ const ItemsList = () => {
         <FloatinBtn
           toggle={()=>setModalVisible(true)}
         />
-        
-      {/*<ScrollView
-       refreshControl={
-        <RefreshControl
-         refreshing={resfreshing}
-         onRefresh={onRefresh}
-        />
-        }
-      >
-      {
-        items.map((item)=> {
-          return (
-            <ItemsTile
-            key={item.id}
-            name={item.name}
-            removeItem={()=>deleteItem(item.id)}
-            addShoppingList={addShopList}
-           />
-          )
-        })
-      }
-        <Modal
-         style={styles.modalView}
-         animationType='slide'
-         transparent={false}
-         visible={modalVisible}
-        >
-          <View>
-            <ItemAddForm />
-            <Pressable
-             onPress={()=> setModalVisible(!modalVisible)}
-             >
-               <Text>close</Text>
-            </Pressable>
-          </View>
-        </Modal>
-        <FloatinBtn
-          toggle={()=>setModalVisible(true)}
-        />
-    </ScrollView>*/}
     </SafeAreaView>
   )
 };
@@ -125,7 +85,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   container:{
-   height:'93%',
+   height:'92%',
   },
 })
 

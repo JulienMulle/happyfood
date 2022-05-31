@@ -3,8 +3,6 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
 //params
-
-const OPTIONS = ['tarte aux pommes', 'couscous', 'saumon aux légumes', 'quiche', 'raclette', 'salade composé', 'gateau au chocolat'];
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
@@ -19,14 +17,9 @@ const ModalRecipes = ({modalVisibility, setData}) => {
     .catch((error)=>{
       console.log('erreur', error)
     })
-  }
-  useEffect(loadRecipes,[])
- 
-  const onPressRecipe = (recipesList)=>{
-    modalVisibility(false);
-    setData(recipesList.title)
   };
-
+  useEffect(loadRecipes,[]);
+ 
   const recipesList = recipes.map((recipe)=>{
     return(
       <TouchableOpacity
@@ -40,10 +33,14 @@ const ModalRecipes = ({modalVisibility, setData}) => {
         >
           {recipe.title}
         </Text>
-
       </TouchableOpacity>
     )
   });
+  
+  const onPressRecipe = (recipesList)=>{
+    modalVisibility(false);
+    setData(recipesList)
+  };
 
   return (
     <TouchableOpacity

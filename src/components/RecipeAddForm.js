@@ -8,6 +8,7 @@ const RecipeAddForm = () => {
     const [description, setDescription] = useState('');
     const [file, setFile] = useState('');
 
+
     const options = {
         title: 'Select Image',
         type: 'library',
@@ -45,17 +46,8 @@ const RecipeAddForm = () => {
     }).then(response => {
         console.log(response,'test ok')
     }).catch(err=> console.log(err))
-}
+    };
 
-    /*const NewRecipe = ()=>{
-        axios({
-            url:`http://10.0.2.2:5000/recipe`,
-            data: formData,
-            method: 'post',
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            },
-    })};*/
 
     return(
         <View>
