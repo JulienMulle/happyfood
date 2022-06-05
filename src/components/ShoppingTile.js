@@ -2,12 +2,29 @@ import React from 'react';
 import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const ShoppingTile = ({name, removeShopItem,ToggleShopItem })=> {
+const ShoppingTile = ({name, removeShopItem,ToggleShopItem, quantity, add, remove })=> {
     
     return(
         <View style={styles.itemContainer}>
             <View style={styles.container}>
                 <Text style={styles.name}>{name}</Text>
+                <View style={styles.cmdbtn}>
+                <TouchableOpacity onPress={add}>
+                     <Icon
+                        name='md-add'
+                        size={15}
+                        color="black"
+                     />
+                </TouchableOpacity>
+                <Text>{quantity}</Text>
+                <TouchableOpacity onPress={remove}>
+                     <Icon
+                        name='md-remove'
+                        size={15}
+                        color="black"
+                     />
+                </TouchableOpacity>
+                
                 <TouchableOpacity onPress={removeShopItem} style={styles.btn}>
                     <Icon 
                     name="trash"
@@ -15,6 +32,7 @@ const ShoppingTile = ({name, removeShopItem,ToggleShopItem })=> {
                     color='tomato'
                     />
                 </TouchableOpacity>
+                </View>
             </View>
             
         </View>
@@ -51,6 +69,10 @@ const styles = StyleSheet.create({
     btn:{
         paddingRight: 30,
     },
+    cmdbtn:{
+        flexDirection:'row',
+        //justifyContent:'space-evenly'
+    }
 })
 
 export default ShoppingTile;

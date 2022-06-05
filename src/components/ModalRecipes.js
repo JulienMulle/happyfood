@@ -19,6 +19,11 @@ const ModalRecipes = ({modalVisibility, setData}) => {
     })
   };
   useEffect(loadRecipes,[]);
+
+  const onPressRecipe = (recipesList)=>{
+    modalVisibility(false);
+    setData(recipesList)
+  };
  
   const recipesList = recipes.map((recipe)=>{
     return(
@@ -36,11 +41,6 @@ const ModalRecipes = ({modalVisibility, setData}) => {
       </TouchableOpacity>
     )
   });
-  
-  const onPressRecipe = (recipesList)=>{
-    modalVisibility(false);
-    setData(recipesList)
-  };
 
   return (
     <TouchableOpacity
@@ -51,7 +51,9 @@ const ModalRecipes = ({modalVisibility, setData}) => {
         <View 
          style={[styles.modal, {width: WIDTH - 20, height: HEIGHT /2}]}
         >
-          <ScrollView>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+          >
             {recipesList}
           </ScrollView>
         </View>

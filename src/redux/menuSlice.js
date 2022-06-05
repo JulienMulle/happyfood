@@ -4,16 +4,11 @@ export const menuSlice = createSlice({
     name: 'menuList',
     initialState: [], 
     reducers:{
-        addItem: (state, action)=>{
-            const newRecipe = {               
-                id:Date.now(),
-                name: action.payload,
-                //user_id: action.payload
-            }
-            state.push(newRecipe);
+        addRecipe: (state, action)=>{
+            state.push(action.payload);
         },
 
-        deleteItem: (state, action)=>{
+        deleteRecipe: (state, action)=>{
             state = state.filter((i)=> i.id !== action.payload);
             return state;
         },
@@ -23,6 +18,6 @@ export const menuSlice = createSlice({
     }
 });
 
-export const { newRecipe } = menuSlice.actions;
+export const { addRecipe, deleteRecipe } = menuSlice.actions;
 
 export default menuSlice.reducer

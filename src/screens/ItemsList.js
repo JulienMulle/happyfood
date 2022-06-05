@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, SafeAreaView, Modal, Text, RefreshControl, Pressable, FlatList} from 'react-native';
+import {View, StyleSheet, SafeAreaView, Modal, Text, RefreshControl, Pressable, FlatList, TextInput} from 'react-native';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { addItem } from '../features/shoplistSlice';
+import { addItem } from '../redux/shoplistSlice';
 
 //components
 import ItemsTile from '../components/ItemsTile'
@@ -12,8 +12,10 @@ import ItemAddForm from '../components/ItemAddForm';
 
 const ItemsList = () => {
   const [items, setItems] = useState("");
-  const [modalVisible, setModalVisible] = useState(false)
-  const [resfreshing, setRefreshing] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false);
+  const [resfreshing, setRefreshing] = useState(false);
+  const [search, setSearch] = useState('');
+  const [searchData, setSearchData] = useState([])
   //redux
   const dispatch = useDispatch();
 
@@ -25,7 +27,8 @@ const ItemsList = () => {
   const loadItems = ()=>{
     axios.get(`http://10.0.2.2:5000/items/`)
     .then((response)=>{
-        setItems(response.data)
+        setItems(response.data);
+        setSearchData(response.data);
     })
   }
   useEffect(loadItems,[]);
@@ -38,8 +41,28 @@ const ItemsList = () => {
     setItems(newItemsList);
   };
 
+  const searchFilter = (text) => {
+    if (text) {
+      const newData = searchData.filter((item)=>{
+        const itemData = item.name ? item.name : '';
+        const textData = text;
+        return itemData.indexOf(textData) > -1;
+      });
+      setItems(newData);
+      setSearch(text);
+    } else {
+      setItems(searchData);
+      setSearch(text);
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
+      <TextInput
+        value={search}
+        placeholder={"j'ai besoin de..."}
+        onChangeText={(text)=>searchFilter(text)}
+      />
       <FlatList
         data={items}
         key={items.id}
@@ -47,7 +70,7 @@ const ItemsList = () => {
           <ItemsTile 
            name={item.name}
            removeItem={()=>deleteItem(item.id)}
-           addShoppingList={()=>dispatch(addItem(item.name))}
+           addShoppingList={()=>dispatch(addItem(item))}
            />}
         refreshControl={
           <RefreshControl

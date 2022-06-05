@@ -15,13 +15,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
-import store from './src/features/store';
+import store from './src/redux/store';
 
 //components
 import ItemsList from './src/screens/ItemsList';
 import ShoppingList from './src/screens/ShoppingList';
-import RecipesStack from './src/components/StackNavigation/RecipesStack';
-import MenuStack from './src/components/StackNavigation/MenuStack';
+import RecipesStack from './src/stackNavigation/RecipesStack';
+import MenuStack from './src/stackNavigation/MenuStack';
 import Account from './src/screens/Account';
 
 const Tab = createBottomTabNavigator();

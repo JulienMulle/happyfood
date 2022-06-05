@@ -1,39 +1,56 @@
-import React from 'react'
-import {Text,View, StyleSheet, FlatList, scrollView} from 'react-native';
+import React from 'react';
+import { FlatList, Button, View, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleItem, deleteItem } from '../features/shoplistSlice';
+import { deleteItem, increment, decrement, deleteAllItem } from '../redux/shoplistSlice';
 
 //components
 import ShoppingTile from '../components/ShoppingTile';
-import Counter from '../components/Counter';
-
 
 const ShoppingList = () => {
 
   //redux
   const shoplist = useSelector((state)=>state.shopList);
   const dispatch = useDispatch();
-  console.log(shoplist)
+  console.log(shoplist);
 
   return (
+    <View>
     <FlatList 
+      style={styles.container}
       data={shoplist}
       key={shoplist.id}
       renderItem={({item})=>
         <ShoppingTile 
           name={item.name}
           removeShopItem={()=>dispatch(deleteItem(item.id))}
+          add={()=>dispatch(increment(item.id))}
+          remove={()=>{
+            if (item.quantity === 1) {
+              dispatch(deleteItem(item.id));
+              
+            } else {
+              dispatch(decrement(item.id));
+            }
+          }}
+          quantity={item.quantity}
         />}
     />
-      
+    <Button
+      style={styles.btn}
+      title="*pouf*"
+      onPress={()=>dispatch(deleteAllItem())}
+    />
+    </View>
   )
 };
 
-const styles = StyleSheet.create({
+const styles= StyleSheet.create({
   container:{
-   
-    
-  }
+    height:'85%',
+    //marginBottom: 60
+  },
+  btn:{
+    width:'45%'
+  },
 })
-
 export default ShoppingList
